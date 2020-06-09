@@ -39,6 +39,7 @@ const App = () => {
         username,
         password,
       });
+      // Code after this line only executes when user has successfully logged it.
       window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user));
       console.log(window.localStorage);
       blogService.setToken(user.token);
@@ -46,8 +47,6 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (e) {
-      console.log("erroe", e);
-
       setErrorMessage("Wrong Username or Password");
       setTimeout(() => {
         setErrorMessage(null);
@@ -60,6 +59,7 @@ const App = () => {
       <div>
         <h3>Login to Blog Application</h3>
         <br></br>
+        <Notification message={errorMessage} />
         Username:{" "}
         <input
           type="text"
@@ -85,7 +85,7 @@ const App = () => {
   );
   const handleLogOut = (e) => {
     setUser(null);
-    window.localStorage.clear();
+    window.localStorage.clear(); // wehn we click logout button.
   };
   const addBlog = (e) => {
     e.preventDefault();
@@ -112,10 +112,8 @@ const App = () => {
       ) : (
         <div>
           <h2>Blogs</h2>
-
           <h3>Logged in as {user.name}</h3>
-          <button onClick={() => handleLogOut()}> Log Out</button>
-          {/* {noteForm()} */}
+          <button onClick={handleLogOut}> Log Out</button>
           <br></br>
           <form onSubmit={addBlog}>
             <h3>Create new blog</h3>
@@ -152,10 +150,7 @@ const App = () => {
             <br />
             <button type="submit">Create</button>
           </form>
-
           <br />
-          <br />
-          <Notification message={errorMessage} />
           <Success message={successMessage} />
           <br />
           <br />
