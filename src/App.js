@@ -85,7 +85,7 @@ const App = () => {
   const addBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility();
     blogService.create(blogObject).then((returnedBlog) => {
-      return setBlogs(blogs.concat(returnedBlog));
+      setBlogs(blogs.concat(returnedBlog));
     });
     setSuccessMessage(`${blogObject.title} added.`);
     setTimeout(() => {
@@ -94,7 +94,7 @@ const App = () => {
   };
 
   const removeBlog = (blog) => {
-    if (user.usersname === blog.user.username) {
+    if (user.username === blog.user.username) {
       const confirm = window.confirm(`Delete ${blog.title} by ${blog.author}?`);
       if (confirm === true) {
         blogService.remove(blog.id);
@@ -105,18 +105,6 @@ const App = () => {
       alert("Not valid user to delete");
     }
   };
-
-  // if (user.usersname === blog.user.username) {
-  //   const confirm = window.confirm(`Delete ${blog.title} by ${blog.author}?`);
-  //   if (confirm === true) {
-  //     blogService.remove(blog.id);
-
-  //     const newBlogs = blogs.filter((b) => b.id !== blog.id);
-  //     setBlogs(newBlogs);
-  //   }
-  // } else {
-  //   alert("Not valid user to delete");
-  // }
   const blogForm = () => (
     <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
       <BlogForm createBlog={addBlog} />

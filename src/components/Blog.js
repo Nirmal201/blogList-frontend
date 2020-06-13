@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Blog = ({ blog, updateLike, remove }) => {
+const Blog = ({ blog, user, updateLike, remove }) => {
   const [showDetail, setShowDetails] = useState(true);
 
   //Temporary design
@@ -33,7 +33,9 @@ const Blog = ({ blog, updateLike, remove }) => {
             {" "}
             {blog.user.name}
           </p>
-          <button onClick={() => remove(blog.id)}>Remove</button>
+          {user === blog.user.name ? (
+            <button onClick={() => remove(blog.id)}>Remove</button>
+          ) : null}
         </div>
       )}
     </div>
